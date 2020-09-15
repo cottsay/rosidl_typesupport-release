@@ -23,6 +23,9 @@ Source0:        %{name}-%{version}.tar.gz
 @[if Supplements]@\n%if 0%{?with_weak_deps}
 @[for p in Supplements]Supplements:    @p@\n@[end for]@
 %endif@\n@[end if]@
+%if 0%{?with_weak_deps}
+Suggests:       ros-eloquent-rosidl-typesupport-fastrtps-c
+%endif
 
 %description
 @(Description)
