@@ -109,6 +109,8 @@ tracks:
       -i :{release_inc} --os-name debian --os-not-required
     - git-bloom-generate -y rosrpm --prefix release/:{ros_distro} :{ros_distro} -i
       :{release_inc}
+      --skip-keys rosidl_typesupport_connext_c rosidl_typesupport_connext_cpp
+      rosidl_typesupport_opensplice_c rosidl_typesupport_opensplice_cpp
     devel_branch: eloquent
     last_version: 0.8.0
     name: rosidl_typesupport
