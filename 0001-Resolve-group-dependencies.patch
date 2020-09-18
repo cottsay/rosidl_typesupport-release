@@ -1,0 +1,44 @@
+From 74fd7c607243d7f84c64e6870132be25d9569e46 Mon Sep 17 00:00:00 2001
+From: Scott K Logan <logans@cottsay.net>
+Date: Tue, 15 Sep 2020 16:54:06 -0700
+Subject: [PATCH] Resolve group dependencies
+
+Also drop the unavailable RMWs from the package.xml.
+
+Signed-off-by: Scott K Logan <logans@cottsay.net>
+---
+ package.xml          | 2 --
+ rpm/template.spec.em | 3 +++
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/package.xml b/package.xml
+index 47d89af..61920f3 100644
+--- a/package.xml
++++ b/package.xml
+@@ -16,9 +16,7 @@
+   Bloom does not support group_depend so entries below duplicate the group rosidl_typesupport_cpp_packages.
+   This ensures that binary packages have support for all of these rmw impl. enabled.
+   -->
+-  <build_depend>rosidl_typesupport_connext_cpp</build_depend>
+   <build_depend>rosidl_typesupport_introspection_cpp</build_depend>
+-  <build_depend>rosidl_typesupport_opensplice_cpp</build_depend>
+   <!-- end of group rosidl_typesupport_cpp_packages for bloom -->
+ 
+   <buildtool_export_depend>ament_cmake_core</buildtool_export_depend>
+diff --git a/rpm/template.spec.em b/rpm/template.spec.em
+index c0d00ea..6a53f00 100644
+--- a/rpm/template.spec.em
++++ b/rpm/template.spec.em
+@@ -23,6 +23,9 @@ Source0:        %{name}-%{version}.tar.gz
+ @[if Supplements]@\n%if 0%{?with_weak_deps}
+ @[for p in Supplements]Supplements:    @p@\n@[end for]@
+ %endif@\n@[end if]@
++%if 0%{?with_weak_deps}
++Suggests:       ros-eloquent-rosidl-typesupport-fastrtps-cpp
++%endif
+ 
+ %description
+ @(Description)
+-- 
+2.26.2
+
